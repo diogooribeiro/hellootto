@@ -1,0 +1,200 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+@theme inline {
+  --font-sans: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-instrument), ui-serif, Georgia, serif;
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-border: var(--line);
+
+  --color-otto: #3430ff;
+  --color-otto-deep: #2622d9;
+  --color-ink: #17182b;
+  --color-mist: #f5f6fa;
+  --color-lilac: #eeedff;
+  --color-lilac-strong: #dcdaff;
+  --color-muted: #65687a;
+  --color-line: #e4e6ef;
+
+  /* Café da Praça — marca fictícia usada na demonstração */
+  --color-cafe-cream: #f4ebdd;
+  --color-cafe-green: #22392c;
+  --color-cafe-clay: #c4593d;
+}
+
+:root {
+  color-scheme: light;
+  --background: #ffffff;
+  --foreground: #17182b;
+  --line: #e4e6ef;
+}
+
+@layer base {
+  * {
+    border-color: var(--line);
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    background: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+  ::selection {
+    background: #dcdaff;
+    color: #17182b;
+  }
+  :focus-visible {
+    outline: 3px solid #9996ff;
+    outline-offset: 3px;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Olhos do Otto                                                       */
+/* ------------------------------------------------------------------ */
+
+.otto-pupil {
+  transform: translate(var(--px, 0px), var(--py, 0px));
+  transition: transform 0.32s cubic-bezier(0.3, 0.7, 0.25, 1);
+}
+.otto-lid,
+.otto-mode {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.otto-blink .otto-lid {
+  animation: otto-blink 0.17s ease-in-out;
+}
+@keyframes otto-blink {
+  50% {
+    transform: scaleY(0.08);
+  }
+}
+
+[data-otto-mode='thinking'] .otto-mode {
+  animation: otto-think 1.5s ease-in-out infinite;
+}
+[data-otto-mode='thinking'] .otto-eye-r .otto-mode {
+  animation-delay: 0.08s;
+}
+@keyframes otto-think {
+  0%,
+  100% {
+    transform: translate(-5px, -3px);
+  }
+  50% {
+    transform: translate(5px, -3px);
+  }
+}
+
+[data-otto-mode='happy'] .otto-mode {
+  animation: otto-happy 0.9s cubic-bezier(0.3, 1.6, 0.4, 1) both;
+}
+@keyframes otto-happy {
+  0% {
+    transform: none;
+  }
+  35% {
+    transform: translateY(-5px) scale(1.22);
+  }
+  60% {
+    transform: translateY(-3px) scaleY(0.55) scaleX(1.15);
+  }
+  100% {
+    transform: translateY(-2px) scale(1.08);
+  }
+}
+
+[data-otto-mode='pop'] .otto-mode {
+  animation: otto-pop 0.55s cubic-bezier(0.3, 1.5, 0.4, 1);
+}
+@keyframes otto-pop {
+  30% {
+    transform: scale(1.3);
+  }
+  60% {
+    transform: scale(0.9);
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Movimentos utilitários                                              */
+/* ------------------------------------------------------------------ */
+
+.rise {
+  animation: rise 0.55s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.caret {
+  display: inline-block;
+  width: 2px;
+  height: 1.05em;
+  margin-left: 2px;
+  vertical-align: -0.15em;
+  background: #3430ff;
+  animation: caret 1s steps(1) infinite;
+}
+@keyframes caret {
+  50% {
+    opacity: 0;
+  }
+}
+
+.flow-line {
+  stroke-dasharray: 3 7;
+  animation: flow 1.6s linear infinite;
+}
+@keyframes flow {
+  to {
+    stroke-dashoffset: -20;
+  }
+}
+
+.shimmer-text {
+  background: linear-gradient(90deg, #65687a 30%, #3430ff 50%, #65687a 70%);
+  background-size: 250% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: shimmer 1.8s linear infinite;
+}
+@keyframes shimmer {
+  from {
+    background-position: 100% 0;
+  }
+  to {
+    background-position: -150% 0;
+  }
+}
+
+.no-scrollbar {
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}
